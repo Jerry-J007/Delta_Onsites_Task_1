@@ -5,10 +5,10 @@
     <title>Simple File Manager</title>
     <style>
         body { font-family: monospace; margin: 20px; line-height: 1.6; }
-        section { border: 1px solid #16c75ac6; padding: 15px; margin-bottom: 20px; border-radius: 4px; }
+        section { border: 1px solid #999; padding: 15px; margin-bottom: 20px; border-radius: 4px; }
         h3 { margin-top: 0; }
         input, button { padding: 5px; margin-top: 5px; }
-        pre { background: #f4f0f0; padding: 10px; max-height: 200px; overflow-y: auto; }
+        pre { background: #eee; padding: 10px; max-height: 200px; overflow-y: auto; }
     </style>
 </head>
 <body>
@@ -36,14 +36,9 @@
     <section>
         <h3>3. View Local File Content</h3>
         <button id="pickFileBtn">Open File</button>
-        <pre id="fileContent">Select a text file to view its contents</pre>
+        <pre id="fileContent">Select a text file to view its contents...</pre>
     </section>
 
-    <section>
-        <h3>4. Uploaded Files on Server</h3>
-        <button id="loadServerFilesBtn">Load Files</button>
-        <ul id="serverFileList"></ul>
-    </section>
     <script>
      
         document.getElementById('uploadForm').addEventListener('submit', async (e) => {
@@ -94,30 +89,6 @@
                 document.getElementById('fileContent').innerText = text;
             } catch (err) {
                 console.error(err);
-            }
-        });
-
-        document.getElementById('loadServerFilesBtn').addEventListener('click', async () => {
-            const list = document.getElementById('serverFileList');
-            list.innerHTML = 'Loading...';
-            
-            try {
-                const response = await fetch('/files');
-                const files = await response.json();
-                list.innerHTML = ''; 
-
-                if (files.length === 0) {
-                    list.innerHTML = '<li>No files found on the server.</li>';
-                    return;
-                }
-
-                files.forEach(file => {
-                    const li = document.createElement('li');
-                    li.innerHTML = `${file.filename} <a href="/download/${file.relativePath}" download>[Download]</a>`;
-                    list.appendChild(li);
-                });
-            } catch (error) {
-                list.innerHTML = '<li>Error loading files.</li>';
             }
         });
     </script>
