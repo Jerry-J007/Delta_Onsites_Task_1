@@ -25,11 +25,10 @@ A Chromium-based web browser (Chrome, Edge, Brave) to support the File System Ac
 Install dependencies: Navigate to the project directory in your terminal and run:
 the only required files are server.js, index.html and package.json
 
-Bash
 npm install
-Start the server:
 
-Bash
+To Start the server:
+
 node server.js
 
 Access the application: Open your web browser and navigate to:
